@@ -3,11 +3,17 @@ import { usePlayerContext } from "@/context/PlayerContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const HomePage = () => {
   const { equipos, removeTeam, editTeam } = usePlayerContext();
   const router = useRouter();
-  const user = sessionStorage.getItem('user')
+  const [user, setUser] = useState<string | null>('')
+
+  useEffect(() => {
+    const value = sessionStorage.getItem('user');
+    setUser(value)
+  }, []);
   
   const actionEditTeam =(index: number)=>{
     editTeam(index)
