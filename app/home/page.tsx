@@ -25,7 +25,7 @@ const HomePage = () => {
       <div className="w-full flex flex-row justify-between items-center flex-nowrap">
         <div >
           {
-            user && <p className="text-2xl text-white">Bienvenido <span className="font-semibold text-slate-400 underline">{user}</span></p>
+            user && <p className="md:text-2xl text-white">Bienvenido <span className="font-semibold text-slate-400 underline">{user}</span></p>
           }
         </div>
         <div>
@@ -42,12 +42,12 @@ const HomePage = () => {
         </div>
        
       </div>
-      <div className="flex flex-row gap-5">
+      <div className="flex flex-row justify-center gap-5 flex-wrap mt-10">
         {equipos.length > 0 ? (
           equipos.map((equipo, index) => (
-            <div key={index}>
+            <div key={index} className="max-w-xl">
               <div className="w-full flex flex-row justify-between items-center">
-                <p className="text-2xl text-white mt-10">{equipo.name}</p>
+                <p className="text-2xl text-white">{equipo.name}</p>
                 <div className="flex flex-row gap-2 items-center">
                         <button onClick={()=> actionEditTeam(index)} className="px-4 py-2 bg-green-500 text-gray-200 rounded-md hover:bg-gray-700 cursor-pointer transition-all">Editar</button>
                         <button onClick={()=> removeTeam(index)} className="px-4 py-2 bg-red-500 text-gray-200 rounded-md hover:bg-gray-700 cursor-pointer transition-all">Eliminar</button>
@@ -109,7 +109,7 @@ const HomePage = () => {
             </div>
           ))
         ) : (
-          <p className="text-2xl text-white mt-10">Estas listo para crear tu mejor equipo?</p>
+          <p className="md:text-2xl text-lg text-white mt-10">Estas listo para crear tu mejor equipo?</p>
         )}
       </div>
     </div>

@@ -48,7 +48,7 @@ const CrearCancha = () => {
 
             </div>
         </div>
-        <div className="w-3/5 bg-lime-500 mt-10 min-h-96 rounded-sm p-10 flex flex-row flex-wrap justify-stretch gap-5">
+        <div className=" w-full max-w-xl bg-lime-500 mt-10 min-h-96 rounded-sm p-10 flex flex-row flex-wrap justify-center items-center gap-5">
             {
                 equipo && 
                 

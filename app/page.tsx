@@ -15,7 +15,8 @@ const Inicio = () => {
 
   return (
   <div className="p-5 flex flex-col justify-center items-center bg-gradient-to-r from-gray-700 to-gray-800 h-full min-h-screen">
-    <div className="w-2/3 flex flex-col justify-center items-center gap-4 py-10 bg-gray-900 rounded-md">
+    <p className="text-3xl mb-5 text-amber-300">ATC Dream Match</p>
+    <div className="md:w-2/3 w-5/6 flex flex-col justify-center items-center gap-4 py-10 bg-gray-900 rounded-md">
       <p className="text-2xl text-white">Nombre de usuario</p>
       <input onChange={(e)=> setUser(e.target.value)} type="text" className="border-2 border-zinc-400 rounded-lg px-2 py-1 text-lg"/>
       <button onClick={ingresar} className="px-4 py-2 bg-gray-800 text-gray-200 rounded-md hover:bg-gray-700 cursor-pointer transition-all">Ingresar</button>

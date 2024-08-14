@@ -1,7 +1,6 @@
 "use client";
 import { Player } from "@/interfaces/player";
 import { fetchPlayers } from "@/services/api";
-import { Plaster } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -23,7 +22,7 @@ function PlayerSearch() {
   };
 
   return (
-    <div className="w-3/5 flex flex-col items-center gap-y-3 bg-white p-5 top-10 rounded-md shadow-xl min-h-96 absolute">
+    <div className="md:w-3/5 flex flex-col items-center gap-y-3 bg-white p-5 top-10 rounded-md shadow-xl min-h-96 absolute">
       <h1>Buscar Jugador</h1>
       <form className="flex flex-row gap-x-2" onSubmit={handleSearchSubmit}>
         <input
