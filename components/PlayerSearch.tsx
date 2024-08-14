@@ -22,8 +22,6 @@ function PlayerSearch() {
     setPlayers(playersData.sort((a: Player, b: Player)=> parseInt(b.player_minutes) - parseInt(a.player_minutes)));
   };
 
-  console.log(players)
-
   return (
     <div className="w-3/5 flex flex-col items-center gap-y-3 bg-white p-5 top-10 rounded-md shadow-xl min-h-96 absolute">
       <h1>Buscar Jugador</h1>

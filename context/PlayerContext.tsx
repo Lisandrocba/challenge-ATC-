@@ -12,11 +12,14 @@ import {
 type playerContextType = {
   equipo: Equipo;
   setEquipo: Dispatch<SetStateAction<Equipo>>;
-  equipos: [];
-  setEquipos: Dispatch<SetStateAction<[]>>;
+  equipos: Equipo[];
+  setEquipos: Dispatch<SetStateAction<Equipo[]>>;
   handleSelectPlayer: (player: Player) => void;
   deletePlayer: (id: number) => void;
-  addNameEquipo: (name: string) => void;
+  addNameTeam: (name: string) => void;
+  createTeam: () => void;
+  removeTeam: (index: number) => void;
+  editTeam: (index: number) => void
 };
 
 type Props = {
@@ -33,7 +36,10 @@ const playerContextTypeDefault: playerContextType = {
   setEquipos: () => {},
   handleSelectPlayer: () => {},
   deletePlayer: () => {},
-  addNameEquipo: ()=> {},
+  addNameTeam: ()=> {},
+  createTeam: ()=> {},
+  removeTeam: ()=> {},
+  editTeam: ()=> {},
 };
 
 const PlayerContext = createContext<playerContextType>(
@@ -49,9 +55,24 @@ export function PlayerProvider({ children }: Props) {
     name: '',
     players: []
   });
-  const [equipos, setEquipos] = useState<[]>([]);
+  const [equipos, setEquipos] = useState<Equipo[]>([]);
+  const [edit, setEdit] = useState(
+    {
+      flat: false,
+      ide: -1
+    }
+  )
 
   const handleSelectPlayer = (player: Player) => {
+    let flatPayer = false
+    equipos?.map(equipo=>{
+      if (equipo?.players.find((p) => p.player_id === player.player_id)) {
+        alert("Este jugador ya está en una de las canchas.");
+        flatPayer= true
+        return;
+      }
+    })
+    if(flatPayer) return
     if (equipo?.players.find((p) => p.player_id === player.player_id)) {
       alert("Este jugador ya está en una de las canchas.");
       return;
@@ -64,13 +85,54 @@ export function PlayerProvider({ children }: Props) {
     }
   };
 
-  const addNameEquipo =(name: string)=>{
+  const addNameTeam =(name: string)=>{
     setEquipo({...equipo, name: name})
   }
 
   const deletePlayer = (id: number) => {
     setEquipo({...equipo, players: equipo?.players.filter((player) => player.player_id !== id)});
   };
+
+  const createTeam =()=> {
+    if(edit.flat){
+      setEquipos([equipos[edit.ide] = equipo])
+      setEquipo({
+        name: '',
+        players: []
+      })
+      setEdit({
+        flat: false,
+        ide: -1
+      })
+    }else{
+      if(equipos.length < 2){
+          setEquipos([...equipos, equipo])
+          setEquipo({
+            name: '',
+            players: []
+          })
+        } else{
+          alert("No se pueden crear mas de dos equipos")
+        }
+    }
+  }
+
+  const removeTeam =(index: number) =>{
+    if(equipos){
+      setEquipos(equipos.filter((_, i)=> i !== index))
+    }
+  }
+
+  const editTeam =(index: number)=> {
+    setEquipo({
+      name: '',
+      players: []
+    })
+    if(equipos){
+      setEquipo(equipos[index])
+    }
+    setEdit({flat: true, ide: index})
+  }
 
   const value: playerContextType = {
     equipo,
@@ -79,7 +141,10 @@ export function PlayerProvider({ children }: Props) {
     setEquipos,
     handleSelectPlayer,
     deletePlayer,
-    addNameEquipo
+    addNameTeam,
+    createTeam,
+    removeTeam,
+    editTeam
   };
 
   return (

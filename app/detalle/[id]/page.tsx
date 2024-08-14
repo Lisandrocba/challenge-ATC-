@@ -41,7 +41,7 @@ const Detalle = () => {
   if (loading) return <p>Cargando...</p>;
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="p-5 flex flex-col justify-center items-center bg-gradient-to-r from-gray-700 to-gray-800 h-full min-h-screen">
       {
       
       player && (

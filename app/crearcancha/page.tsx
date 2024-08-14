@@ -5,24 +5,38 @@ import { Player } from "@/interfaces/player"
 import Image from "next/image"
 import { useState } from "react"
 import { Equipo } from '../../interfaces/player';
+import { useRouter } from "next/navigation"
 
 const CrearCancha = () => {
-    const {equipo, deletePlayer, addNameEquipo} = usePlayerContext()
+    const {equipo, deletePlayer, addNameTeam, createTeam} = usePlayerContext()
     const [flatSearch, setFlatSearch] = useState(false)
     const [name, setName] = useState('')
+    const router = useRouter();
 
     const handleChange =(e: React.ChangeEvent<HTMLInputElement>)=>{
         setName(e.target.value)
     }
+    
+    const saveTeam =()=>{
+        if(!equipo.name) return alert('Debe ingresar un nombre')
+        if(equipo.players.length === 5){
+            createTeam()
+            router.push('/home')
+            return
+        } else {
+            alert('El equipo debe tener 5 jugadores')
+            return
+        }
+    }
 
   return (
     <div className="p-5 flex flex-col items-center bg-gradient-to-r from-gray-700 to-gray-800 h-full min-h-screen">
-        <div className="w-full flex flex-row justify-around">
+        <div className="w-full flex flex-row justify-around flex-wrap gap-x-5 gap-y-3">
             {
                 !equipo?.name ?
                 <div className="flex gap-2 ">
                     <input onChange={handleChange} type="text" className="border-2 border-slate-300 rounded-md px-2 py-1 text-lg" placeholder="Nombre del equipo"/>
-                    <button onClick={()=> name ? addNameEquipo(name) : alert('se debe ingresar el nombre')} className="bg-blue-500 w-10 rounded-full text-white text-lg">✔</button>
+                    <button onClick={()=> name ? addNameTeam(name) : alert('se debe ingresar el nombre')} className="bg-blue-500 w-10 rounded-full text-white text-lg">✔</button>
                 </div> :
                 <div className="flex gap-2 ">
                     <p className="text-3xl text-white underline">{equipo.name}</p>
@@ -30,7 +44,7 @@ const CrearCancha = () => {
             }
             <div className="flex flex-row gap-3">
                 <button onClick={()=> setFlatSearch(true)} className="px-4 py-2 bg-gray-800 text-gray-200 rounded-md hover:bg-gray-700 cursor-pointer transition-all">Agregar jugador</button>
-                <button onClick={()=> setFlatSearch(true)} className="px-4 py-2 bg-green-800 text-gray-200 rounded-md hover:bg-gray-700 cursor-pointer transition-all">Guardar equipo</button>
+                <button onClick={saveTeam} className="px-4 py-2 bg-green-800 text-gray-200 rounded-md hover:bg-gray-700 cursor-pointer transition-all">Guardar equipo</button>
 
             </div>
         </div>
